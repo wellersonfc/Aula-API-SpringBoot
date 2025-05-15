@@ -1,4 +1,4 @@
-package com.example.cadastro_pessoas.servicer;
+package com.example.cadastro_pessoas.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +27,11 @@ public class ProdutosService {
     public ProdutosModel criar(ProdutosModel produtosModel){
         return repository.save(produtosModel);
     }
+    
+    public ProdutosModel atualizar(long id, ProdutosModel produtosModel){
+        return repository.save(produtosModel);
+    }
+    
 
     public void deletar(long id){
         repository.deleteById(id);

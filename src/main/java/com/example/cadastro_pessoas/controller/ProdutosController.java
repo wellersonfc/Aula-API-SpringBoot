@@ -1,6 +1,7 @@
 package com.example.cadastro_pessoas.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cadastro_pessoas.model.ProdutosModel;
-import com.example.cadastro_pessoas.servicer.ProdutosService;
+import com.example.cadastro_pessoas.services.ProdutosService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,17 +52,20 @@ public class ProdutosController {
             return ResponseEntity.noContent().build();
         }
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<ProdutosModel> atualizar(@PathVariable long id, @RequestBody ProdutosModel produtoNovo){
         if (!service.buscarPorId(id).isPresent()){
-            return ResponseEntity.notFound().build();        
+            return ResponseEntity.notFound().build();
         }
+        
+        ProdutosModel produtoExistente = service.buscarPorId(id).get();
+        produtoExistente.setNome(produtoNovo.getNome());
+        produtoExistente.setPreco(produtoNovo.getPreco());
+        produtoExistente.setQuantidade(produtoNovo.getQuantidade());
+        produtoExistente.setDescricao(produtoNovo.getDescricao());
 
-        produtoNovo.setId(id);
-        return ResponseEntity.ok(service.criar(produtoNovo));
+        return ResponseEntity.ok(service.atualizar(id, produtoExistente));
     }
     
     
-
 }
