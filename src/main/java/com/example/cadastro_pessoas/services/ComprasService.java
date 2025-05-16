@@ -1,5 +1,6 @@
 package com.example.cadastro_pessoas.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class ComprasService {
     }
 
     public ComprasModel criar(ComprasModel comprasModel){
+        comprasModel.setDataHora(LocalDateTime.now());
         return repository.save(comprasModel);
     }
     

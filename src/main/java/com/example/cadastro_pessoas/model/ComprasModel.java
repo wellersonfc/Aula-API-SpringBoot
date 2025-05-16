@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public class ComprasModel {
     @Column(name = "data_compra", nullable = false)
     private LocalDateTime DataHora;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
     private PessoasModel pessoaId;
 

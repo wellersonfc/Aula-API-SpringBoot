@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,11 +25,11 @@ public class ItensCompraModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "id_compra", referencedColumnName = "id_compra")
     private ComprasModel compraId;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
     private ProdutosModel produtoId;
 
