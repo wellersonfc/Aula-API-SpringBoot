@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.cadastro_pessoas.model.ProdutosModel;
-import com.example.cadastro_pessoas.services.ProdutosService;
+import com.example.cadastro_pessoas.model.ItensCompraModel;
+import com.example.cadastro_pessoas.services.ItensCompraService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,28 +18,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
 @RestController
-@RequestMapping("api/produtos")
-public class ProdutosController {
+@RequestMapping("api/itens-compra")
+public class ItensCompraController {
 
     @Autowired
-    private ProdutosService service;
+    private ItensCompraService service;
 
     @GetMapping
-    public List<ProdutosModel> listarTodos() {
+    public List<ItensCompraModel> listarTodos() {
         return service.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutosModel> buscarPorId(@PathVariable long id) {
+    public ResponseEntity<ItensCompraModel> buscarPorId(@PathVariable long id) {
         return service.buscarPorId(id).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ProdutosModel criarProduto(@RequestBody ProdutosModel produtosModel) {
-        return service.criar(produtosModel);
+    public ItensCompraModel criarCompra(@RequestBody ItensCompraModel itensCompraModelModel) {
+        return service.criar(itensCompraModelModel);
     }
 
     @DeleteMapping("/{id}")
@@ -52,18 +51,12 @@ public class ProdutosController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutosModel> atualizar(@PathVariable long id, @RequestBody ProdutosModel produtoNovo){
-        if (!service.buscarPorId(id).isPresent()){
+    public ResponseEntity<ItensCompraModel> atualizar(@PathVariable long id, @RequestBody ItensCompraModel itensCompraModelModel) {
+        if (!service.buscarPorId(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        
-        ProdutosModel produtoExistente = service.buscarPorId(id).get();
-        produtoExistente.setNome(produtoNovo.getNome());
-        produtoExistente.setPreco(produtoNovo.getPreco());
-        produtoExistente.setQuantidade(produtoNovo.getQuantidade());
-        produtoExistente.setDescricao(produtoNovo.getDescricao());
-
-        return ResponseEntity.ok(service.atualizar(id, produtoExistente));
+        itensCompraModelModel.setId(id);
+        return ResponseEntity.ok(service.atualizar(id, itensCompraModelModel));
     }
     
     
