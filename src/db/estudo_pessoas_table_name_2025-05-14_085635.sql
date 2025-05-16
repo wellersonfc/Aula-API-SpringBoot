@@ -7,7 +7,7 @@ CREATE DATABASE estudo_pessoas
 --
 Use estudo_pessoas
 
-DROP TABLE IF EXISTS `table_name`;
+DROP TABLE IF EXISTS `pessoas`;
 
 CREATE TABLE `table_name` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
