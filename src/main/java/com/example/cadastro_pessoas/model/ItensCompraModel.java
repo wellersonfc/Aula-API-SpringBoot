@@ -1,10 +1,13 @@
 package com.example.cadastro_pessoas.model;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,25 +16,26 @@ import lombok.Setter;
 
 @Entity
 @Getter@Setter
-@Table(name = "produtos")
+@Table(name = "itens_compra")
 @AllArgsConstructor @NoArgsConstructor
-public class ProdutosModel {
+public class ItensCompraModel {
 
     @Id
+    @Column(name = "id_item_compra")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_produto")
     private long id;
 
-    @Column(name = "nome_produto", nullable = false, length = 100)
-    private String nome;
+    @ManyToMany
+    @JoinColumn(name = "id_compra", referencedColumnName = "id_compra")
+    private ComprasModel compraId;
 
-    @Column(name = "preco_produto", nullable = false)
-    private double preco;
+    @ManyToMany
+    @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
+    private ProdutosModel produtoId;
 
-    @Column(name = "quantidade_estoque", nullable = false)
+    @Column(name = "quantidade")
     private int quantidade;
 
-    @Column(name = "descricao_produto")
-    private String descricao;
-
+    @Column(name = "preco_unitario")
+    private double precoUnitario;
 }

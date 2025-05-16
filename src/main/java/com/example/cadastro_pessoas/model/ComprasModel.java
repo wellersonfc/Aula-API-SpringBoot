@@ -1,10 +1,14 @@
 package com.example.cadastro_pessoas.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,25 +17,20 @@ import lombok.Setter;
 
 @Entity
 @Getter@Setter
-@Table(name = "produtos")
+@Table(name = "compras")
 @AllArgsConstructor @NoArgsConstructor
-public class ProdutosModel {
+public class ComprasModel {
 
     @Id
+    @Column(name = "id_compra")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_produto")
     private long id;
 
-    @Column(name = "nome_produto", nullable = false, length = 100)
-    private String nome;
+    @Column(name = "data_compra", nullable = false)
+    private LocalDateTime DataHora;
 
-    @Column(name = "preco_produto", nullable = false)
-    private double preco;
-
-    @Column(name = "quantidade_estoque", nullable = false)
-    private int quantidade;
-
-    @Column(name = "descricao_produto")
-    private String descricao;
+    @OneToMany
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
+    private PessoasModel pessoaId;
 
 }
