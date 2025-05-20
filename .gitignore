@@ -34,6 +34,4 @@ build/
 
 ### VS Code ###
 .vscode/
-
-# Ignore senhas e configurações locais
 application.properties
